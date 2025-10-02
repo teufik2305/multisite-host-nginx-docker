@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App 3 - Static Site</title>
+    <base href="/app3/">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 App 3 - Static HTML Site</h1>
+        </header>
+        
+        <div class="info-card">
+            <h2>About This App</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Technology:</strong> Pure HTML, CSS, JavaScript
+                </div>
+                <div class="info-item">
+                    <strong>Container:</strong> Nginx Alpine serving static files
+                </div>
+                <div class="info-item">
+                    <strong>Internal Port:</strong> 80
+                </div>
+                <div class="info-item">
+                    <strong>Purpose:</strong> Demonstrates static site hosting
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Interactive Demo</h2>
+            <div class="clock-container">
+                <div id="clock" class="clock"></div>
+                <p class="clock-label">Current Time (Your Browser)</p>
+            </div>
+            
+            <div class="color-demo">
+                <button onclick="changeColor()" class="btn">Change Background Color</button>
+                <p>Click the button to randomize the background!</p>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>What This Demonstrates</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <h3>📦 Static Hosting</h3>
+                    <p>No backend required - just HTML, CSS, and JavaScript</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Fast Performance</h3>
+                    <p>Nginx serves files directly from disk with caching</p>
+                </div>
+                <div class="feature">
+                    <h3>🔒 Secure</h3>
+                    <p>No dynamic execution - reduces attack surface</p>
+                </div>
+                <div class="feature">
+                    <h3>📱 Responsive</h3>
+                    <p>Works great on mobile, tablet, and desktop</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="/" class="btn">← Back to Home</a>
+        </div>
+
+        <footer>
+            <p>Static site served by Nginx in a Docker container</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

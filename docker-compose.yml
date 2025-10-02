@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/landing-page-path.html:/etc/nginx/html/landing-page-path.html:ro
+      - ./nginx/landing-page-dns.html:/etc/nginx/html/landing-page-dns.html:ro
+    depends_on:
+      - app1
+      - app2
+      - app3
+    networks:
+      - webnet
+    restart: unless-stopped
+
+  # App 1: Node.js Application
+  app1:
+    build: ./app1-node
+    container_name: app1-node
+    expose:
+      - "3000"
+    networks:
+      - webnet
+    restart: unless-stopped
+
+  # App 2: Python Flask Application
+  app2:
+    build: ./app2-python
+    container_name: app2-python
+    expose:
+      - "5000"
+    networks:
+      - webnet
+    restart: unless-stopped
+
+  # App 3: Static HTML Site
+  app3:
+    build: ./app3-static
+    container_name: app3-static
+    expose:
+      - "80"
+    networks:
+      - webnet
+    restart: unless-stopped
+
+networks:
+  webnet:
+    driver: bridge
+

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Hosting Practice</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 50px auto; 
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        .apps { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px; 
+        }
+        .app-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+        .app-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+        a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .tech { 
+            margin-top: 10px; 
+            font-size: 0.9em; 
+            opacity: 0.9; 
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        .info-box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #ffeb3b;
+        }
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Hosting Practice</h1>
+    
+    <div class="info-box">
+        <h3>Path-Based Routing Active</h3>
+        <p>Each application is accessible via URL paths on <code>localhost</code></p>
+        <p><strong>Mode:</strong> Development / Learning Setup</p>
+    </div>
+    
+    <div class="apps">
+        <div class="app-card">
+            <a href="/app1">App 1</a>
+            <div class="tech">Node.js + Express</div>
+        </div>
+        <div class="app-card">
+            <a href="/app2">App 2</a>
+            <div class="tech">Python + Flask</div>
+        </div>
+        <div class="app-card">
+            <a href="/app3">App 3</a>
+            <div class="tech">Static HTML</div>
+        </div>
+    </div>
+    
+    <div class="info-box">
+        <h3>How It Works</h3>
+        <p>Nginx routes based on URL paths:</p>
+        <ul style="margin-left: 20px;">
+            <li><strong>/app1</strong> -> app1:3000 (Node.js)</li>
+            <li><strong>/app2</strong> -> app2:5000 (Python)</li>
+            <li><strong>/app3</strong> -> app3:80 (Static)</li>
+        </ul>
+    </div>
+    
+    <div class="info-box">
+        <h3>Want DNS-Based Routing?</h3>
+        <p>For production-style domain routing, run:</p>
+        <p><code>./setup-dns-local.sh</code></p>
+        <p>See <strong>docs/05-DNS_GUIDE.md</strong> for details</p>
+    </div>
+    
+    <div class="footer">
+        <p>Powered by Docker + Nginx Reverse Proxy</p>
+    </div>
+</body>
+</html>
+

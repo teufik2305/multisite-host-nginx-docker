@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Hosting Practice - DNS Setup</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 900px; 
+            margin: 50px auto; 
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        h1 { text-align: center; margin-bottom: 20px; }
+        .info-box {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        .domain-list {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .domain-card {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .domain-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.2);
+        }
+        a { 
+            color: #ffeb3b; 
+            text-decoration: none; 
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        a:hover { text-decoration: underline; }
+        .tech { 
+            margin-top: 8px; 
+            font-size: 0.9em; 
+            opacity: 0.9; 
+        }
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .setup-instructions {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        .setup-instructions h3 {
+            margin-top: 0;
+            color: #ffeb3b;
+        }
+        .setup-instructions ol {
+            margin-left: 20px;
+        }
+        .setup-instructions li {
+            margin: 10px 0;
+        }
+        pre {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Hosting Practice - DNS Configuration</h1>
+    
+    <div class="info-box">
+        <h2>DNS-Based Routing Active!</h2>
+        <p>Each application is now accessible via its own domain name.</p>
+        <p><strong>Status:</strong> Nginx is configured for domain-based routing.</p>
+    </div>
+
+    <div class="setup-instructions">
+        <h3>Local Testing Setup</h3>
+        <p>To test these domains locally, add them to your <code>/etc/hosts</code> file:</p>
+        <ol>
+            <li>Open terminal and run: <code>sudo nano /etc/hosts</code></li>
+            <li>Add these lines:
+                <pre>127.0.0.1  webhostingpracticenode.com
+127.0.0.1  webhostingpracticepython.com
+127.0.0.1  webhostingpracticestatic.com</pre>
+            </li>
+            <li>Save and exit (Ctrl+X, then Y, then Enter)</li>
+            <li>Click the links below to visit each app!</li>
+        </ol>
+    </div>
+
+    <div class="domain-list">
+        <div class="domain-card">
+            <a href="http://webhostingpracticenode.com">webhostingpracticenode.com</a>
+            <div class="tech">Node.js + Express API</div>
+        </div>
+        <div class="domain-card">
+            <a href="http://webhostingpracticepython.com">webhostingpracticepython.com</a>
+            <div class="tech">Python + Flask Web App</div>
+        </div>
+        <div class="domain-card">
+            <a href="http://webhostingpracticestatic.com">webhostingpracticestatic.com</a>
+            <div class="tech">Static HTML/CSS/JS Site</div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <h3>How It Works</h3>
+        <p>Nginx reads the <code>Host</code> header from incoming requests and routes them to the appropriate backend service:</p>
+        <ul style="margin-left: 20px;">
+            <li><strong>webhostingpracticenode.com</strong> -> app1:3000 (Node.js)</li>
+            <li><strong>webhostingpracticepython.com</strong> -> app2:5000 (Python)</li>
+            <li><strong>webhostingpracticestatic.com</strong> -> app3:80 (Static)</li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; opacity: 0.8;">
+        <p>See <strong>docs/05-DNS_GUIDE.md</strong> for complete documentation</p>
+        <p>Powered by Docker + Nginx DNS-Based Routing</p>
+    </div>
+</body>
+</html>
