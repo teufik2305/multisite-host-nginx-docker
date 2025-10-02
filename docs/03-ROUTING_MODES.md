@@ -44,17 +44,20 @@ This project supports **two routing modes** that you can easily switch between.
 ./setup-dns-local.sh
 ```
 This will:
-1. Add domains to `/etc/hosts`
-2. Switch nginx to DNS configuration
+1. Add domains to `/etc/hosts` (requires sudo)
+2. Copy `nginx-dns.conf` to `nginx.conf`
 3. Restart nginx
+4. Flush DNS cache
 
 ### Switch to Path-Based Routing
 ```bash
 ./setup-path-local.sh
 ```
 This will:
-1. Restore path-based nginx configuration
+1. Copy `nginx-path.conf` to `nginx.conf`
 2. Restart nginx
+
+**Note:** Both scripts are now streamlined and provide cleaner output.
 
 ---
 
@@ -62,11 +65,13 @@ This will:
 
 | File | Purpose |
 |------|---------|
-| `nginx/nginx.conf` | **Active configuration** (used by Docker) |
-| `nginx/nginx-dns.conf` | DNS-based routing template |
-| `nginx/nginx.conf.path-backup` | Path-based routing backup |
+| `nginx/nginx.conf` | **Active configuration** (generated, not in git) |
+| `nginx/nginx-dns.conf` | DNS-based routing template (source) |
+| `nginx/nginx-path.conf` | Path-based routing template (source) |
 | `nginx/landing-page-path.html` | Landing page for path-based mode |
-| `nginx/landing-page.html` | Landing page for DNS-based mode |
+| `nginx/landing-page-dns.html` | Landing page for DNS-based mode |
+
+**Note:** `nginx.conf` is automatically generated from either `nginx-path.conf` or `nginx-dns.conf` depending on which mode you activate. It's excluded from git via `.gitignore`.
 
 ---
 
@@ -191,6 +196,16 @@ grep -E "location /app1|webhostingpracticenode" nginx/nginx.conf
 ./setup-dns-local.sh
 ```
 
+### Missing nginx.conf?
+The `nginx.conf` file is now generated automatically. If it's missing:
+```bash
+# The start.sh script will create it automatically
+./start.sh
+
+# Or manually copy the path-based config (default)
+cp nginx/nginx-path.conf nginx/nginx.conf
+```
+
 ---
 
 ## 📚 Related Documentation
@@ -210,6 +225,29 @@ grep -E "location /app1|webhostingpracticenode" nginx/nginx.conf
 3. **Switch freely** between modes - they both work with the same apps
 4. **Check the landing page** - it shows which mode is active
 5. **Read the docs** - 04-DNS_VS_PATH.md has detailed comparisons
+
+---
+
+## 🎉 Recent Improvements
+
+### Seamless Mode Switching
+The apps now intelligently adapt to both routing modes:
+
+- **App 1 (Node.js)**: Uses relative URLs (`api/hello` instead of `/app1/api/hello`)
+- **App 2 (Python)**: Detects hostname and adjusts API paths dynamically
+- **App 3 (Static)**: Dynamic `<base href>` that adapts based on routing mode
+
+This means you can switch between path-based and DNS-based routing without modifying the applications themselves!
+
+### Simplified Setup Scripts
+- `setup-dns-local.sh` - Streamlined with cleaner output
+- `setup-path-local.sh` - Quick and simple mode switching
+- `start.sh` - Now ensures `nginx.conf` exists before starting
+
+### Better Configuration Management
+- `nginx.conf` is now auto-generated and excluded from git
+- Template-based approach with `nginx-path.conf` and `nginx-dns.conf`
+- No more manual backup files to manage
 
 Happy coding! 🚀
 

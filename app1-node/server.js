@@ -58,18 +58,28 @@ app.get('/', (req, res) => {
                 <strong>GET /</strong> - This page
             </div>
             <div class="endpoint">
-                <strong>GET /api/hello</strong> - <a href="/app1/api/hello">JSON response</a>
+                <strong>GET /api/hello</strong> - <a href="api/hello">JSON response</a>
             </div>
             <div class="endpoint">
-                <strong>GET /api/time</strong> - <a href="/app1/api/time">Current server time</a>
+                <strong>GET /api/time</strong> - <a href="api/time">Current server time</a>
             </div>
             <div class="endpoint">
-                <strong>GET /api/info</strong> - <a href="/app1/api/info">Server information</a>
+                <strong>GET /api/info</strong> - <a href="api/info">Server information</a>
             </div>
             
             <div class="back">
-                <a href="/">← Back to Home</a>
+                <a href="#" onclick="goHome(); return false;">← Back to Home</a>
             </div>
+            <script>
+                function goHome() {
+                    // In DNS mode, go to localhost; in path mode, go to /
+                    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                        window.location.href = 'http://localhost/';
+                    } else {
+                        window.location.href = '/';
+                    }
+                }
+            </script>
         </body>
         </html>
     `);

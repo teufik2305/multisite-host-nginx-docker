@@ -81,7 +81,7 @@ CMD ["node", "server.js"]  # Start command
 **Try this:** Change the Node version to `node:20-alpine` and rebuild.
 
 #### Step 3: Understand Nginx Configuration
-Open `nginx/nginx.conf` and find:
+Open `nginx/nginx-path.conf` (the path-based routing template) and find:
 
 ```nginx
 location /app1 {
@@ -94,6 +94,8 @@ location /app1 {
 - Requests to `/app1` → forwarded to `app1:3000`
 - `app1` is the service name from docker-compose.yml
 - Docker's internal DNS resolves service names
+
+**Note:** `nginx.conf` is auto-generated from either `nginx-path.conf` or `nginx-dns.conf` depending on which routing mode you choose.
 
 ### Phase 2: Running the Stack
 
@@ -240,7 +242,7 @@ Add the new service:
 ```
 
 #### Step 15: Update Nginx Configuration
-Add to `nginx/nginx.conf`:
+Add to `nginx/nginx-path.conf`:
 ```nginx
 upstream app4_backend {
     server app4:8080;
@@ -250,6 +252,11 @@ upstream app4_backend {
 location /app4 {
     proxy_pass http://app4_backend/;
 }
+```
+
+Then regenerate the active config:
+```bash
+cp nginx/nginx-path.conf nginx/nginx.conf
 ```
 
 #### Step 16: Deploy the New App

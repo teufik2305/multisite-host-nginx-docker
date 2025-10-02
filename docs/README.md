@@ -90,8 +90,9 @@ Jump straight to `06-CHEATSHEET.md`
 
 - `../README.md` - Project overview (in root directory)
 - `../docker-compose.yml` - Service configuration
-- `../nginx/nginx.conf` - Path-based routing config
-- `../nginx/nginx-dns.conf` - DNS-based routing config
+- `../nginx/nginx-path.conf` - Path-based routing template
+- `../nginx/nginx-dns.conf` - DNS-based routing template
+- `../nginx/nginx.conf` - Active configuration (auto-generated)
 
 ---
 

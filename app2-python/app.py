@@ -52,11 +52,17 @@ HTML_TEMPLATE = """
     <script>
         let count = 0;
         function updateCounter() {
-            fetch('/app2/api/counter')
+            // Use relative path to work with both routing modes
+            const apiPath = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+                ? '/app2/api/counter' 
+                : '/api/counter';
+            
+            fetch(apiPath)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('counter').textContent = data.count;
-                });
+                })
+                .catch(error => console.error('Counter update failed:', error));
         }
         setInterval(updateCounter, 1000);
     </script>
@@ -81,18 +87,28 @@ HTML_TEMPLATE = """
         <strong>GET /</strong> - This page
     </div>
     <div class="endpoint">
-        <strong>GET /api/status</strong> - <a href="/app2/api/status">JSON status</a>
+        <strong>GET /api/status</strong> - <a href="api/status">JSON status</a>
     </div>
     <div class="endpoint">
-        <strong>GET /api/counter</strong> - <a href="/app2/api/counter">Request counter</a>
+        <strong>GET /api/counter</strong> - <a href="api/counter">Request counter</a>
     </div>
     <div class="endpoint">
-        <strong>GET /api/system</strong> - <a href="/app2/api/system">System info</a>
+        <strong>GET /api/system</strong> - <a href="api/system">System info</a>
     </div>
     
     <div class="back">
-        <a href="/">← Back to Home</a>
+        <a href="#" onclick="goHome(); return false;">← Back to Home</a>
     </div>
+    <script>
+        function goHome() {
+            // In DNS mode, go to localhost; in path mode, go to /
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                window.location.href = 'http://localhost/';
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
 </body>
 </html>
 """

@@ -19,9 +19,10 @@ multisite-host-nginx-docker/
 ## What You'll Learn
 
 1. **Containerization**: Each app runs in its own Docker container
-2. **Reverse Proxy**: Nginx routes traffic to different apps based on the URL path
+2. **Reverse Proxy**: Nginx routes traffic to different apps based on the URL path or domain
 3. **Service Orchestration**: Docker Compose manages multiple containers
 4. **Networking**: Containers communicate through Docker networks
+5. **Routing Modes**: Switch between path-based (`/app1`) and DNS-based (`app1.example.com`) routing
 
 ## Architecture Overview
 
@@ -39,7 +40,11 @@ Internet → Nginx (Port 80) → App1 (Node.js on port 3000)
 
 ### Option 1: Easy Start Script
 ```bash
+# Path-based routing (default)
 ./start.sh
+
+# OR DNS-based routing
+./start.sh dns
 ```
 
 ### Option 2: Manual Start
@@ -66,9 +71,10 @@ docker-compose down
 - App3 (Static): http://localhost/app3
 
 ### DNS-Based URLs (Optional - See docs/05-DNS_GUIDE.md)
-Want to use real domain names locally? Run:
+Want to use real domain names locally?
 ```bash
-./setup-dns-local.sh
+./start.sh dns           # Switch to DNS mode
+./setup-dns-local.sh     # Configure /etc/hosts
 ```
 
 Then access via:
@@ -102,7 +108,8 @@ See `docs/05-DNS_GUIDE.md` for complete DNS setup instructions!
 
 1. Create app directory with Dockerfile
 2. Add service to `docker-compose.yml`
-3. Add location block to `nginx/nginx.conf`
+3. Add location block to `nginx/nginx-path.conf` (or `nginx-dns.conf`)
+4. Regenerate active config: `cp nginx/nginx-path.conf nginx/nginx.conf` (or `cp nginx/nginx-dns.conf nginx/nginx.conf`)
 
 ### Changing Ports
 

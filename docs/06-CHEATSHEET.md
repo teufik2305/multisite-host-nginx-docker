@@ -5,9 +5,13 @@ Quick reference for common commands and concepts.
 ## 🚀 Getting Started
 
 ```bash
-# Start everything
+# Start with path-based routing (default)
 ./start.sh
-# OR
+
+# Start with DNS-based routing
+./start.sh dns
+
+# Manual start
 docker-compose up -d
 
 # Stop everything
@@ -15,6 +19,13 @@ docker-compose down
 
 # View status
 docker-compose ps
+
+# Switch routing modes
+./start.sh path         # Path-based: localhost/app1
+./start.sh dns          # DNS-based: webhostingpracticenode.com
+
+# Configure DNS (after ./start.sh dns)
+./setup-dns-local.sh    # Adds entries to /etc/hosts
 ```
 
 ## 📦 Docker Commands
@@ -177,6 +188,21 @@ docker exec nginx-proxy nginx -t
 
 # Reload nginx
 docker exec nginx-proxy nginx -s reload
+```
+
+### Switching Configurations
+```bash
+# Switch to path-based routing
+cp nginx/nginx-path.conf nginx/nginx.conf
+docker-compose restart nginx
+
+# Switch to DNS-based routing
+cp nginx/nginx-dns.conf nginx/nginx.conf
+docker-compose restart nginx
+
+# OR use the provided scripts (recommended)
+./setup-path-local.sh
+./setup-dns-local.sh
 ```
 
 ### Logs
@@ -554,7 +580,9 @@ docker inspect --format='{{.State.Health.Status}}' <container-name>
 
 ### Important Files
 - `docker-compose.yml` - Service definitions
-- `nginx/nginx.conf` - Routing rules
+- `nginx/nginx-path.conf` - Path-based routing template
+- `nginx/nginx-dns.conf` - DNS-based routing template
+- `nginx/nginx.conf` - Active config (auto-generated)
 - `*/Dockerfile` - Container build instructions
 
 ## 🆘 Emergency Commands

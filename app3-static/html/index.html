@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App 3 - Static Site</title>
-    <base href="/app3/">
+    <script>
+        // Set base href dynamically based on hostname
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            document.write('<base href="/app3/">');
+        }
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -67,7 +72,7 @@
         </div>
 
         <div class="back-link">
-            <a href="/" class="btn">← Back to Home</a>
+            <a href="#" onclick="goHome(); return false;" class="btn">← Back to Home</a>
         </div>
 
         <footer>
@@ -76,6 +81,16 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        function goHome() {
+            // In DNS mode, go to localhost; in path mode, go to /
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                window.location.href = 'http://localhost/';
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
 </body>
 </html>
 

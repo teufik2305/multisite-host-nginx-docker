@@ -31,3 +31,6 @@ logs/
 
 # Backup files
 *.backup.*
+
+# Nginx - generated config
+nginx/nginx.conf

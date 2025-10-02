@@ -210,22 +210,25 @@ server {
 ### Local Testing (with /etc/hosts)
 
 ```bash
+# Quick setup (recommended)
+./start.sh dns           # Switch to DNS mode
+./setup-dns-local.sh     # Configure /etc/hosts
+
+# Manual setup
 # 1. Update /etc/hosts
 sudo nano /etc/hosts
 # Add the domain mappings
 
 # 2. Update nginx configuration
-cp nginx/nginx-dns.conf nginx/nginx.conf
+./start.sh dns
+# OR manually: cp nginx/nginx-dns.conf nginx/nginx.conf && docker-compose restart nginx
 
-# 3. Restart nginx
-docker-compose restart nginx
-
-# 4. Test in browser
+# 3. Test in browser
 # Visit: http://webhostingpracticenode.com
 # Visit: http://webhostingpracticepython.com
 # Visit: http://webhostingpracticestatic.com
 
-# 5. Test with curl
+# 4. Test with curl
 curl -H "Host: webhostingpracticenode.com" http://localhost
 curl -H "Host: webhostingpracticepython.com" http://localhost
 curl -H "Host: webhostingpracticestatic.com" http://localhost
